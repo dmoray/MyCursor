@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FocusFlow – Pomodoro & Tasks</title>
+    <meta
+      name="description"
+      content="Beautiful Pomodoro timer with task list to help you focus and stay organized."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="app-header">
+        <div class="brand">
+          <span class="brand-dot"></span>
+          <h1 class="brand-title">FocusFlow</h1>
+        </div>
+        <p class="app-subtitle">Pomodoro timer with tasks</p>
+      </header>
+
+      <main class="app-main">
+        <section class="card timer-card" aria-label="Pomodoro timer">
+          <div class="timer-modes" role="tablist" aria-label="Timer mode">
+            <button
+              class="mode-button is-active"
+              data-mode="pomodoro"
+              role="tab"
+              aria-selected="true"
+            >
+              Pomodoro
+            </button>
+            <button
+              class="mode-button"
+              data-mode="short"
+              role="tab"
+              aria-selected="false"
+            >
+              Short Break
+            </button>
+            <button
+              class="mode-button"
+              data-mode="long"
+              role="tab"
+              aria-selected="false"
+            >
+              Long Break
+            </button>
+          </div>
+
+          <div class="timer-display" aria-live="polite">
+            <span id="timer-minutes">25</span
+            ><span class="timer-separator">:</span
+            ><span id="timer-seconds">00</span>
+          </div>
+
+          <div class="timer-progress-wrapper" aria-hidden="true">
+            <div class="timer-progress-bar">
+              <div class="timer-progress-fill" id="timer-progress"></div>
+            </div>
+          </div>
+
+          <div class="timer-controls">
+            <button id="timer-start-pause" class="primary-button">
+              Start
+            </button>
+            <button id="timer-reset" class="ghost-button">Reset</button>
+          </div>
+
+          <p class="timer-hint">
+            Stay focused during Pomodoro sessions. Take short breaks between
+            them and a long break after a few cycles.
+          </p>
+        </section>
+
+        <section class="card tasks-card" aria-label="Task list">
+          <header class="tasks-header">
+            <h2>Today’s tasks</h2>
+            <span class="tasks-counter" id="tasks-counter">0 tasks</span>
+          </header>
+
+          <form id="task-form" class="task-form" autocomplete="off">
+            <label class="sr-only" for="task-input">Add a new task</label>
+            <input
+              id="task-input"
+              class="task-input"
+              type="text"
+              name="task"
+              placeholder="What do you want to focus on?"
+              maxlength="120"
+              required
+            />
+            <button type="submit" class="primary-button task-add-button">
+              Add
+            </button>
+          </form>
+
+          <ul id="task-list" class="task-list"></ul>
+
+          <div class="tasks-footer">
+            <button id="clear-completed" class="ghost-button small">
+              Clear completed
+            </button>
+          </div>
+        </section>
+      </main>
+
+      <footer class="app-footer">
+        <span>Built with the Pomodoro technique in mind.</span>
+      </footer>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
+
