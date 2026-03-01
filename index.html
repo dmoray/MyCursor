@@ -22,50 +22,59 @@
 
       <main class="app-main">
         <section class="card timer-card" aria-label="Pomodoro timer">
-          <div class="timer-modes" role="tablist" aria-label="Timer mode">
-            <button
-              class="mode-button is-active"
-              data-mode="pomodoro"
-              role="tab"
-              aria-selected="true"
-            >
-              Pomodoro
-            </button>
-            <button
-              class="mode-button"
-              data-mode="short"
-              role="tab"
-              aria-selected="false"
-            >
-              Short Break
-            </button>
-            <button
-              class="mode-button"
-              data-mode="long"
-              role="tab"
-              aria-selected="false"
-            >
-              Long Break
-            </button>
-          </div>
+          <h2 class="timer-title">Timer</h2>
+          <div class="timer-layout">
+            <div class="timer-main">
+              <div class="timer-display" aria-live="polite">
+                <span id="timer-minutes">25</span
+                ><span class="timer-separator">:</span
+                ><span id="timer-seconds">00</span>
+              </div>
 
-          <div class="timer-display" aria-live="polite">
-            <span id="timer-minutes">25</span
-            ><span class="timer-separator">:</span
-            ><span id="timer-seconds">00</span>
-          </div>
+              <div class="timer-progress-wrapper" aria-hidden="true">
+                <div class="timer-progress-bar">
+                  <div class="timer-progress-fill" id="timer-progress"></div>
+                </div>
+              </div>
 
-          <div class="timer-progress-wrapper" aria-hidden="true">
-            <div class="timer-progress-bar">
-              <div class="timer-progress-fill" id="timer-progress"></div>
+              <div class="timer-controls">
+                <button id="timer-start-pause" class="primary-button">
+                  Start
+                </button>
+                <button id="timer-reset" class="ghost-button">Reset</button>
+              </div>
             </div>
-          </div>
 
-          <div class="timer-controls">
-            <button id="timer-start-pause" class="primary-button">
-              Start
-            </button>
-            <button id="timer-reset" class="ghost-button">Reset</button>
+            <div
+              class="timer-modes timer-modes-vertical"
+              role="tablist"
+              aria-label="Timer mode"
+            >
+              <button
+                class="mode-button is-active"
+                data-mode="pomodoro"
+                role="tab"
+                aria-selected="true"
+              >
+                Pomodoro
+              </button>
+              <button
+                class="mode-button"
+                data-mode="short"
+                role="tab"
+                aria-selected="false"
+              >
+                Short break
+              </button>
+              <button
+                class="mode-button"
+                data-mode="long"
+                role="tab"
+                aria-selected="false"
+              >
+                Long break
+              </button>
+            </div>
           </div>
 
           <p class="timer-hint">
@@ -76,25 +85,30 @@
 
         <section class="card tasks-card" aria-label="Task list">
           <header class="tasks-header">
-            <h2>Today’s tasks</h2>
-            <span class="tasks-counter" id="tasks-counter">0 tasks</span>
+            <div class="tasks-header-main">
+              <h2>Tasks</h2>
+              <span class="tasks-counter" id="tasks-counter">No tasks yet</span>
+            </div>
+            <form id="task-form" class="task-form task-form-inline" autocomplete="off">
+              <label class="sr-only" for="task-input">Add a new task</label>
+              <input
+                id="task-input"
+                class="task-input"
+                type="text"
+                name="task"
+                placeholder="What do you want?"
+                maxlength="120"
+                required
+              />
+              <button
+                type="submit"
+                class="primary-button task-add-button task-add-inline"
+                aria-label="Add task"
+              >
+                +
+              </button>
+            </form>
           </header>
-
-          <form id="task-form" class="task-form" autocomplete="off">
-            <label class="sr-only" for="task-input">Add a new task</label>
-            <input
-              id="task-input"
-              class="task-input"
-              type="text"
-              name="task"
-              placeholder="What do you want to focus on?"
-              maxlength="120"
-              required
-            />
-            <button type="submit" class="primary-button task-add-button">
-              Add
-            </button>
-          </form>
 
           <ul id="task-list" class="task-list"></ul>
 

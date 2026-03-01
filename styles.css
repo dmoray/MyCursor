@@ -33,11 +33,17 @@ body {
 
 body {
   font-family: var(--font-sans);
-  background:
-    radial-gradient(circle at top left, #1d4ed8 0, transparent 55%),
-    radial-gradient(circle at bottom right, #22c55e 0, transparent 55%),
-    radial-gradient(circle at top right, #f97316 0, transparent 55%),
-    var(--bg);
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(15, 23, 42, 0.97),
+      rgba(15, 23, 42, 0.9)
+    ),
+    url("https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg?auto=compress&cs=tinysrgb&w=1600");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: var(--text);
   -webkit-font-smoothing: antialiased;
 }
@@ -55,6 +61,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  align-items: center;
+  text-align: center;
 }
 
 .brand {
@@ -95,10 +103,10 @@ body {
 
 .app-main {
   flex: 1;
-  max-width: 960px;
+  max-width: 720px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: 20px;
   align-items: stretch;
 }
@@ -115,13 +123,33 @@ body {
 .timer-card {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
 }
 
 .tasks-card {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.timer-title {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.timer-layout {
+  display: flex;
+  gap: 18px;
+  align-items: stretch;
+}
+
+.timer-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .timer-modes {
@@ -133,10 +161,25 @@ body {
   gap: 4px;
 }
 
+.timer-modes-vertical {
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 170px;
+  aspect-ratio: 1 / 1;
+  border-radius: 999px;
+  padding: 28px 10px;
+  border-radius: 50%;
+  background-color: rgba(15, 23, 42, 0.92);
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.8);
+}
+
 .mode-button {
   border: none;
   outline: none;
-  padding: 6px 14px;
+  padding: 6px 18px;
   border-radius: var(--radius-pill);
   font-size: 0.86rem;
   letter-spacing: 0.04em;
@@ -156,12 +199,26 @@ body {
 
 .mode-button.is-active {
   background: radial-gradient(circle at top, var(--accent-soft), transparent),
-    linear-gradient(135deg, rgba(37, 99, 235, 0.9), rgba(109, 40, 217, 0.9));
+    linear-gradient(135deg, rgba(37, 99, 235, 0.95), rgba(109, 40, 217, 0.95));
   color: #f9fafb;
   box-shadow:
     0 12px 30px rgba(79, 70, 229, 0.45),
     0 0 0 1px rgba(191, 219, 254, 0.2) inset;
   transform: translateY(-0.5px);
+}
+
+.timer-modes-vertical .mode-button {
+  width: auto;
+  min-width: 0;
+}
+
+.timer-modes-vertical .mode-button + .mode-button {
+  margin-top: 10px;
+}
+
+.timer-modes-vertical .mode-button:not(.is-active) {
+  background: transparent;
+  box-shadow: none;
 }
 
 .timer-display {
@@ -297,9 +354,16 @@ body {
 
 .tasks-header {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
-  gap: 6px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.tasks-header-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .tasks-header h2 {
@@ -315,6 +379,11 @@ body {
 .task-form {
   display: flex;
   gap: 8px;
+}
+
+.task-form-inline {
+  flex: 1;
+  max-width: 360px;
 }
 
 .task-input {
@@ -344,6 +413,10 @@ body {
 
 .task-add-button {
   white-space: nowrap;
+}
+
+.task-add-inline {
+  padding-inline: 14px;
 }
 
 .task-list {
@@ -478,12 +551,18 @@ input:focus-visible {
 }
 
 @media (max-width: 900px) {
-  .app-main {
-    grid-template-columns: minmax(0, 1fr);
+  .timer-layout {
+    flex-direction: column;
   }
 
-  .tasks-card {
-    order: 2;
+  .timer-modes-vertical {
+    flex-direction: row;
+    justify-content: center;
+    min-width: 0;
+    aspect-ratio: auto;
+    padding: 4px 6px;
+    border-radius: var(--radius-pill);
+    box-shadow: none;
   }
 }
 
@@ -496,18 +575,13 @@ input:focus-visible {
     padding-inline: 16px;
   }
 
-  .timer-controls {
-    flex-direction: row;
+  .tasks-header {
+    align-items: flex-start;
   }
 
-  .task-form {
-    flex-direction: column;
-  }
-
-  .task-add-button {
+  .task-form-inline {
     width: 100%;
-    justify-content: center;
-    text-align: center;
+    max-width: none;
   }
 }
 
