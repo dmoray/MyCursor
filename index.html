@@ -6,118 +6,185 @@
     <title>FocusFlow – Pomodoro & Tasks</title>
     <meta
       name="description"
-      content="Beautiful Pomodoro timer with task list to help you focus and stay organized."
+      content="Sci‑fi HUD style Pomodoro timer with task list to help you focus and stay organized."
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap"
+      rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <div class="app">
-      <header class="app-header">
-        <div class="brand">
-          <span class="brand-dot"></span>
-          <h1 class="brand-title">FocusFlow</h1>
-        </div>
-        <p class="app-subtitle">Pomodoro timer with tasks</p>
-      </header>
-
       <main class="app-main">
-        <section class="card timer-card" aria-label="Pomodoro timer">
-          <h2 class="timer-title">Timer</h2>
-          <div class="timer-layout">
-            <div class="timer-main">
-              <div class="timer-display" aria-live="polite">
-                <span id="timer-minutes">25</span
-                ><span class="timer-separator">:</span
-                ><span id="timer-seconds">00</span>
+        <div class="hud-grid">
+          <aside class="hud-panel hud-panel-left" aria-label="Status panel">
+            <header class="hud-online-header">
+              <div class="hud-online-row">
+                <span class="hud-online-label">ONLINE</span>
+                <span class="hud-online-tag">FOCUSFLOW INTERFACE</span>
               </div>
-
-              <div class="timer-progress-wrapper" aria-hidden="true">
-                <div class="timer-progress-bar">
-                  <div class="timer-progress-fill" id="timer-progress"></div>
+              <div class="hud-oscilloscope" aria-hidden="true">
+                <div class="hud-osc-track"></div>
+                <span class="hud-osc-text">FOCUS FLOW</span>
+              </div>
+            </header>
+            <div class="hud-block">
+              <div class="hud-block-title">FOCUS SESSION</div>
+              <div class="hud-block-body">
+                <div class="hud-kv">
+                  <span class="hud-kv-label">MODE</span>
+                  <span class="hud-kv-value" id="hud-mode-label">POMODORO</span>
+                </div>
+                <div class="hud-kv">
+                  <span class="hud-kv-label">CYCLE</span>
+                  <span class="hud-kv-value">01</span>
                 </div>
               </div>
-
-              <div class="timer-controls">
-                <button id="timer-start-pause" class="primary-button">
-                  Start
-                </button>
-                <button id="timer-reset" class="ghost-button">Reset</button>
+            </div>
+            <div class="hud-block hud-block-small">
+              <div class="hud-block-title">TIMER</div>
+              <div class="hud-block-body hud-block-timer-readout">
+                <span id="hud-minutes">25</span>:<span id="hud-seconds">00</span>
               </div>
             </div>
+          </aside>
 
-            <div
-              class="timer-modes timer-modes-vertical"
-              role="tablist"
-              aria-label="Timer mode"
-            >
-              <button
-                class="mode-button is-active"
-                data-mode="pomodoro"
-                role="tab"
-                aria-selected="true"
-              >
-                Pomodoro
-              </button>
-              <button
-                class="mode-button"
-                data-mode="short"
-                role="tab"
-                aria-selected="false"
-              >
-                Short break
-              </button>
-              <button
-                class="mode-button"
-                data-mode="long"
-                role="tab"
-                aria-selected="false"
-              >
-                Long break
-              </button>
+          <section class="hud-panel hud-panel-center" aria-label="Main console">
+            <section class="card timer-card" aria-label="Pomodoro timer">
+              <header class="hud-card-header">
+                <span class="hud-card-title">POMODORO CONTROL</span>
+                <span class="hud-card-meta">FOCUS MODULE · V1.0</span>
+              </header>
+              <div class="timer-layout">
+                <div class="timer-main">
+                  <div class="timer-display" aria-live="polite">
+                    <span id="timer-minutes">25</span
+                    ><span class="timer-separator">:</span
+                    ><span id="timer-seconds">00</span>
+                  </div>
+
+                  <div class="timer-progress-wrapper" aria-hidden="true">
+                    <div class="timer-progress-bar">
+                      <div
+                        class="timer-progress-fill"
+                        id="timer-progress"
+                      ></div>
+                    </div>
+                  </div>
+
+                  <div class="timer-controls">
+                    <button id="timer-start-pause" class="primary-button">
+                      Start
+                    </button>
+                    <button id="timer-reset" class="ghost-button">Reset</button>
+                  </div>
+
+                  <p class="timer-hint">
+                    Maintain focus during work intervals. Take short or long
+                    breaks between cycles.
+                  </p>
+                </div>
+
+                <div
+                  class="timer-modes timer-modes-vertical"
+                  role="tablist"
+                  aria-label="Timer mode"
+                >
+                  <button
+                    class="mode-button is-active"
+                    data-mode="pomodoro"
+                    role="tab"
+                    aria-selected="true"
+                  >
+                    Pomodoro
+                  </button>
+                  <button
+                    class="mode-button"
+                    data-mode="short"
+                    role="tab"
+                    aria-selected="false"
+                  >
+                    Short break
+                  </button>
+                  <button
+                    class="mode-button"
+                    data-mode="long"
+                    role="tab"
+                    aria-selected="false"
+                  >
+                    Long break
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            <section class="card tasks-card" aria-label="Task list">
+              <header class="tasks-header hud-card-header">
+                <div class="tasks-header-main">
+                  <h2>Task Feed</h2>
+                  <span class="tasks-counter" id="tasks-counter"
+                    >No tasks yet</span
+                  >
+                </div>
+                <form
+                  id="task-form"
+                  class="task-form task-form-inline"
+                  autocomplete="off"
+                >
+                  <label class="sr-only" for="task-input">Add a new task</label>
+                  <input
+                    id="task-input"
+                    class="task-input"
+                    type="text"
+                    name="task"
+                    placeholder="Input mission objective…"
+                    maxlength="120"
+                    required
+                  />
+                  <button
+                    type="submit"
+                    class="primary-button task-add-button task-add-inline"
+                    aria-label="Add task"
+                  >
+                    +
+                  </button>
+                </form>
+              </header>
+
+              <ul id="task-list" class="task-list"></ul>
+
+              <div class="tasks-footer">
+                <button id="clear-completed" class="ghost-button small">
+                  Clear completed
+                </button>
+              </div>
+            </section>
+          </section>
+
+          <aside class="hud-panel hud-panel-right" aria-label="Metrics panel">
+            <div class="hud-block">
+              <div class="hud-block-title">SESSION METRICS</div>
+              <div class="hud-block-body">
+                <div class="hud-kv">
+                  <span class="hud-kv-label">FOCUS</span>
+                  <span class="hud-kv-value">000%</span>
+                </div>
+                <div class="hud-kv">
+                  <span class="hud-kv-label">TASKS</span>
+                  <span class="hud-kv-value" id="hud-task-count">000</span>
+                </div>
+              </div>
             </div>
-          </div>
-
-          <p class="timer-hint">
-            Stay focused during Pomodoro sessions. Take short breaks between
-            them and a long break after a few cycles.
-          </p>
-        </section>
-
-        <section class="card tasks-card" aria-label="Task list">
-          <header class="tasks-header">
-            <div class="tasks-header-main">
-              <h2>Tasks</h2>
-              <span class="tasks-counter" id="tasks-counter">No tasks yet</span>
+            <div class="hud-block hud-block-small">
+              <div class="hud-block-title">POMODORO GRID</div>
+              <div class="hud-mini-grid">
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+              </div>
             </div>
-            <form id="task-form" class="task-form task-form-inline" autocomplete="off">
-              <label class="sr-only" for="task-input">Add a new task</label>
-              <input
-                id="task-input"
-                class="task-input"
-                type="text"
-                name="task"
-                placeholder="What do you want?"
-                maxlength="120"
-                required
-              />
-              <button
-                type="submit"
-                class="primary-button task-add-button task-add-inline"
-                aria-label="Add task"
-              >
-                +
-              </button>
-            </form>
-          </header>
-
-          <ul id="task-list" class="task-list"></ul>
-
-          <div class="tasks-footer">
-            <button id="clear-completed" class="ghost-button small">
-              Clear completed
-            </button>
-          </div>
-        </section>
+          </aside>
+        </div>
       </main>
 
       <footer class="app-footer">

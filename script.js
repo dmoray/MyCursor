@@ -26,6 +26,15 @@
   const clearCompletedBtn = document.getElementById("clear-completed");
 
   let timerInterval = null;
+  let audioCtx = null;
+
+  function getAudioContext() {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return null;
+    if (!audioCtx) audioCtx = new Ctx();
+    if (audioCtx.state === "suspended") audioCtx.resume();
+    return audioCtx;
+  }
 
   const initialTimerState = {
     mode: "pomodoro",
@@ -161,6 +170,7 @@
 
   function startTimer() {
     if (timerState.isRunning) return;
+    getAudioContext();
     timerState.isRunning = true;
     startPauseBtn.textContent = "Pause";
     if (timerInterval !== null) clearInterval(timerInterval);
@@ -193,7 +203,26 @@
     });
   }
 
+  function playCasioBeep() {
+    try {
+      const ctx = getAudioContext();
+      if (!ctx) return;
+      const gain = ctx.createGain();
+      const osc = ctx.createOscillator();
+      osc.type = "square";
+      osc.frequency.setValueAtTime(880, ctx.currentTime);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      gain.gain.setValueAtTime(0, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.12, ctx.currentTime + 0.02);
+      gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.18);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.2);
+    } catch (_) {}
+  }
+
   function flashTimerDone() {
+    playCasioBeep();
     try {
       if (document.hasFocus()) {
         const msg =
@@ -320,6 +349,7 @@
     });
 
     resetBtn.addEventListener("click", () => {
+      getAudioContext();
       stopTimer();
       resetTimerForMode(timerState.mode);
     });

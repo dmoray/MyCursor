@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FocusFlow Retreat – Pomodoro & Tasks</title>
+    <meta
+      name="description"
+      content="A calm Pomodoro timer with task list, designed for focus and relaxation."
+    />
+    <link rel="stylesheet" href="./styles-relax.css" />
+    <meta name="referrer" content="origin" />
+  </head>
+  <body>
+    <div class="relax-root">
+      <div class="relax-shell">
+        <header class="relax-header">
+          <div class="relax-title-block">
+            <h1 class="relax-title">FocusFlow Retreat</h1>
+            <p class="relax-subtitle">
+              Gentle Pomodoro sessions with a simple task list.
+            </p>
+          </div>
+          <div class="relax-session-pill">Today’s focus session</div>
+        </header>
+
+        <main class="relax-main">
+          <section class="relax-card" aria-label="Pomodoro timer">
+            <header class="relax-timer-header">
+              <span class="relax-timer-title">Timer</span>
+              <div class="relax-modes" role="tablist" aria-label="Timer mode">
+                <button
+                  class="mode-button is-active"
+                  data-mode="pomodoro"
+                  role="tab"
+                  aria-selected="true"
+                >
+                  Pomodoro
+                </button>
+                <button
+                  class="mode-button"
+                  data-mode="short"
+                  role="tab"
+                  aria-selected="false"
+                >
+                  Short break
+                </button>
+                <button
+                  class="mode-button"
+                  data-mode="long"
+                  role="tab"
+                  aria-selected="false"
+                >
+                  Long break
+                </button>
+              </div>
+            </header>
+
+            <div class="relax-timer-hero">
+              <div class="timer-display" aria-live="polite">
+                <span id="timer-minutes">25</span
+                ><span class="timer-separator">:</span
+                ><span id="timer-seconds">00</span>
+              </div>
+              <div class="relax-timer-meta">
+                <span>Stay with the task in front of you.</span>
+                <span>Breaks help your mind reset.</span>
+              </div>
+            </div>
+
+            <div class="relax-progress-wrapper" aria-hidden="true">
+              <div class="timer-progress-bar">
+                <div class="timer-progress-fill" id="timer-progress"></div>
+              </div>
+            </div>
+
+            <div class="timer-controls">
+              <button id="timer-start-pause" class="primary-button">Start</button>
+              <button id="timer-reset" class="ghost-button">Reset</button>
+            </div>
+
+            <p class="timer-hint">
+              Try a few focused Pomodoro blocks with short breaks in between. Let
+              the background stay calm while you do the deep work.
+            </p>
+          </section>
+
+          <section class="relax-card" aria-label="Task list and radio">
+            <header class="tasks-card-header">
+              <h2>Tasks for today</h2>
+              <span class="tasks-counter" id="tasks-counter">No tasks yet</span>
+            </header>
+
+            <form id="task-form" class="task-form" autocomplete="off">
+              <label class="sr-only" for="task-input">Add a new task</label>
+              <input
+                id="task-input"
+                class="task-input"
+                type="text"
+                name="task"
+                placeholder="Write what you’d like to focus on…"
+                maxlength="120"
+                required
+              />
+              <button
+                type="submit"
+                class="primary-button task-add-button"
+                aria-label="Add task"
+              >
+                Add
+              </button>
+            </form>
+
+            <ul id="task-list" class="task-list"></ul>
+
+            <div class="tasks-footer">
+              <button id="clear-completed" class="ghost-button small">
+                Clear completed
+              </button>
+            </div>
+
+            <section class="relax-radio" aria-label="Ambient radio">
+              <header class="relax-radio-header">
+                <h3 class="relax-radio-title">Ambient radio</h3>
+                <span class="relax-radio-tag">Free · 24/7 lofi</span>
+              </header>
+              <div class="relax-radio-player">
+                <iframe
+                  class="relax-radio-iframe"
+                  src="https://www.youtube-nocookie.com/embed/jfKfPfyJRdk?autoplay=0&mute=0&controls=1&modestbranding=1"
+                  title="Lofi hip hop radio – beats to relax/study to"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen                  
+                  referrerpolicy="strict-origin-when-cross-origin"
+                ></iframe>
+              </div>
+              <p class="relax-radio-note">
+                Optional background music while you work. Use your own playlist by
+                replacing the link in the embed.
+              </p>
+            </section>
+          </section>
+        </main>
+
+        <footer class="relax-footer">
+          A quiet place for focused work.
+        </footer>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
+
